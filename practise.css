@@ -1,0 +1,3 @@
+article :nth-child(4n){
+    font-size: 4em;
+}
