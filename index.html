@@ -4,12 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>estudiovioli</title>
+   
+   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: "Bookman Old Style", serif;
+      font-family: "Libre Baskerville","Bookman Old Style", serif;
       scroll-behavior: smooth;
     }
 
@@ -171,70 +173,77 @@
     <p>📧 Email: violitomas@gmail.com</p>
     <p>&copy; 2025 Estudiovioli | Todos los derechos reservados.</p>
   </footer>
+<script>
+  const canvas = document.getElementById("bgCanvas");
+  const ctx = canvas.getContext("2d");
 
-  <script>
-    const canvas = document.getElementById("bgCanvas");
-    const ctx = canvas.getContext("2d");
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener("resize", resizeCanvas);
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
+  const numPoints = 100; 
+  const candleWidth = 8; 
+  let candles = [];
 
-    const numPoints = 100; 
-    const candleWidth = 8; 
-    let candles = [];
+  const canvasTop = 10; // margen superior
+  const canvasBottom = canvas.height - 10; // margen inferior
 
-    // Inicializar velas
-    for (let i = 0; i < numPoints; i++) {
-      let open = canvas.height/2 + Math.random()*50 - 25;
-      let close = open + Math.random()*30 - 15; // Velas más largas
-      let high = Math.max(open, close) + Math.random()*10;
-      let low = Math.min(open, close) - Math.random()*10;
+  function clamp(value) {
+    return Math.max(canvasTop, Math.min(canvasBottom, value));
+  }
+
+  // Inicializar velas
+  for (let i = 0; i < numPoints; i++) {
+    let open = clamp(canvas.height/2 + Math.random()*50 - 25);
+    let close = clamp(open + Math.random()*30 - 15); // Velas más largas
+    let high = clamp(Math.max(open, close) + Math.random()*10);
+    let low = clamp(Math.min(open, close) - Math.random()*10);
+    candles.push({open, high, low, close});
+  }
+
+  let speedCounter = 0;
+  const speedFactor = 6; // más lento
+
+  function animate() {
+    speedCounter++;
+    if(speedCounter % speedFactor === 0){
+      candles.shift();
+      let lastClose = candles[candles.length-1].close;
+      let open = clamp(lastClose);
+      let close = clamp(open + Math.random()*30 - 15); // Velas más largas
+      let high = clamp(Math.max(open, close) + Math.random()*10);
+      let low = clamp(Math.min(open, close) - Math.random()*10);
       candles.push({open, high, low, close});
     }
 
-    let speedCounter = 0;
-    const speedFactor = 6; // más lento
+    ctx.clearRect(0,0,canvas.width, canvas.height);
 
-    function animate() {
-      speedCounter++;
-      if(speedCounter % speedFactor === 0){
-        candles.shift();
-        let lastClose = candles[candles.length-1].close;
-        let open = lastClose;
-        let close = open + Math.random()*30 - 15; // Velas más largas
-        let high = Math.max(open, close) + Math.random()*10;
-        let low = Math.min(open, close) - Math.random()*10;
-        candles.push({open, high, low, close});
-      }
+    for (let i = 0; i < candles.length; i++) {
+      let x = i * (candleWidth + 2) + 50;
+      let candle = candles[i];
+      ctx.strokeStyle = candle.close >= candle.open ? "rgba(0,255,0,0.9)" : "rgba(255,50,50,0.9)";
+      ctx.fillStyle = ctx.strokeStyle;
+      ctx.lineWidth = 2;
 
-      ctx.clearRect(0,0,canvas.width, canvas.height);
+      // Línea High-Low
+      ctx.beginPath();
+      ctx.moveTo(x + candleWidth/2, candle.high);
+      ctx.lineTo(x + candleWidth/2, candle.low);
+      ctx.stroke();
 
-      for (let i = 0; i < candles.length; i++) {
-        let x = i * (candleWidth + 2) + 50;
-        let candle = candles[i];
-        ctx.strokeStyle = candle.close >= candle.open ? "rgba(0,255,0,0.9)" : "rgba(255,50,50,0.9)";
-        ctx.fillStyle = ctx.strokeStyle;
-        ctx.lineWidth = 2;
-
-        // Línea High-Low
-        ctx.beginPath();
-        ctx.moveTo(x + candleWidth/2, candle.high);
-        ctx.lineTo(x + candleWidth/2, candle.low);
-        ctx.stroke();
-
-        // Rectángulo Open-Close
-        ctx.fillRect(x, Math.min(candle.open, candle.close), candleWidth, Math.abs(candle.close - candle.open));
-      }
-
-      requestAnimationFrame(animate);
+      // Rectángulo Open-Close
+      ctx.fillRect(x, Math.min(candle.open, candle.close), candleWidth, Math.abs(candle.close - candle.open));
     }
 
-    animate();
-  </script>
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+</script>
+
 
 </body>
 </html>
