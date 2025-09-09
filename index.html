@@ -183,12 +183,12 @@
   resizeCanvas();
   window.addEventListener("resize", resizeCanvas);
 
-  const numPoints = 100; 
-  const candleWidth = 8; 
+  const numPoints = 100;
+  const candleWidth = 8;
   let candles = [];
 
-  const canvasTop = 10; // margen superior
-  const canvasBottom = canvas.height - 10; // margen inferior
+  const canvasTop = 10;
+  const canvasBottom = canvas.height - 10;
 
   function clamp(value) {
     return Math.max(canvasTop, Math.min(canvasBottom, value));
@@ -197,14 +197,14 @@
   // Inicializar velas
   for (let i = 0; i < numPoints; i++) {
     let open = clamp(canvas.height/2 + Math.random()*50 - 25);
-    let close = clamp(open + Math.random()*30 - 15); // Velas más largas
+    let close = clamp(open + Math.random()*30 - 15);
     let high = clamp(Math.max(open, close) + Math.random()*10);
     let low = clamp(Math.min(open, close) - Math.random()*10);
-    candles.push({open, high, low, close});
+    candles.push({open, high, low, close, alpha: 1.0});
   }
 
   let speedCounter = 0;
-  const speedFactor = 6; // más lento
+  const speedFactor = 6;
 
   function animate() {
     speedCounter++;
@@ -212,10 +212,10 @@
       candles.shift();
       let lastClose = candles[candles.length-1].close;
       let open = clamp(lastClose);
-      let close = clamp(open + Math.random()*30 - 15); // Velas más largas
+      let close = clamp(open + Math.random()*30 - 15);
       let high = clamp(Math.max(open, close) + Math.random()*10);
       let low = clamp(Math.min(open, close) - Math.random()*10);
-      candles.push({open, high, low, close});
+      candles.push({open, high, low, close, alpha: 1.0});
     }
 
     ctx.clearRect(0,0,canvas.width, canvas.height);
@@ -223,7 +223,14 @@
     for (let i = 0; i < candles.length; i++) {
       let x = i * (candleWidth + 2) + 50;
       let candle = candles[i];
-      ctx.strokeStyle = candle.close >= candle.open ? "rgba(0,255,0,0.9)" : "rgba(255,50,50,0.9)";
+
+      // Gradual fade-out
+      candle.alpha = Math.max(0, candle.alpha - 0.002);
+
+      let colorUp = `rgba(100, 200, 100, ${candle.alpha})`;   // verde suave
+      let colorDown = `rgba(230, 120, 120, ${candle.alpha})`; // rojo pastel
+
+      ctx.strokeStyle = candle.close >= candle.open ? colorUp : colorDown;
       ctx.fillStyle = ctx.strokeStyle;
       ctx.lineWidth = 2;
 
@@ -244,8 +251,10 @@
 </script>
 
 
+
 </body>
 </html>
+
 
 
 
