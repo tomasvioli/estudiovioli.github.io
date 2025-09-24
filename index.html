@@ -35,7 +35,7 @@
       opacity: .5;
     }
 
-    header, .hero, .services, footer {
+    header, .hero, .services, .informes, footer {
       position: relative;
       z-index: 2;
     }
@@ -129,6 +129,40 @@
       text-align: center;
     }
 
+    /* Estilo diferente para la sección de Informes */
+    .informes {
+      padding: 3rem 2rem;
+      background: rgba(10,61,98,0.1);
+      max-width: 900px;
+      margin: 3rem auto;
+      border-left: 6px solid #0a3d62;
+      border-radius: 8px;
+      text-align: left;
+    }
+
+    .informes h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: #0a3d62;
+      text-align: center;
+    }
+
+    .informe-item {
+      background: #ffffff;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .informe-item h3 {
+      font-size: 1.1rem;
+      color: #333;
+    }
+
     footer {
       background: #0a3d62;
       color: white;
@@ -145,6 +179,12 @@
 
       nav {
         margin-top: 1rem;
+      }
+
+      .informe-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
       }
     }
   </style>
@@ -192,18 +232,23 @@
   </section>
 
   <!-- Nueva sección de Informes -->
-  <section class="services" id="informes">
-    <div class="card">
+  <section class="informes" id="informes">
+    <h2>Informes Semanales</h2>
+
+    <div class="informe-item">
       <h3>Informe - 19 Septiembre 2025</h3>
       <a href="https://tomasvioli.github.io/estudiovioli.github.io/informes/informe-2025-09-19.pdf" target="_blank" class="btn">Ver / Descargar</a>
     </div>
-    <div class="card">
+
+    <div class="informe-item">
       <h3>Informe - 12 Septiembre 2025</h3>
       <a href="https://tomasvioli.github.io/estudiovioli.github.io/informes/informe-2025-09-12.pdf" target="_blank" class="btn">Ver / Descargar</a>
     </div>
-    <div class="card">
-      <h3>Informe - 05/08/2024</h3>
-      <a href="https://github.com/tomasvioli/estudiovioli.github.io/blob/main/informe%2005%2008%202024.pdf" target="_blank" class="btn">Ver / Descargar</a>
+
+    <div class="informe-item">
+      <h3>Informe - 05 Agosto 2024</h3>
+      <a href="https://raw.githubusercontent.com/tomasvioli/estudiovioli.github.io/main/informe%2005%2008%202024.pdf" 
+         target="_blank" class="btn" download="informe-05-08-2024.pdf">Ver / Descargar</a>
     </div>
   </section>
 
@@ -220,6 +265,3 @@
 
 </body>
 </html>
-
-
-
