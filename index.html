@@ -33,6 +33,7 @@
       z-index: 1;
       filter: brightness(0.4);
       opacity: .5;
+      background: #000; /* fallback en iOS */
     }
 
     header, .hero, .services, .informes, footer {
@@ -84,7 +85,7 @@
       background: rgba(255,255,255,0);
       border-radius: 10px;
       display: inline-block;
-      max-width: auto;
+      max-width: 900px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -104,6 +105,7 @@
       text-decoration: none;
       font-weight: bold;
       margin-top: 1rem;
+      text-align: center;
     }
 
     .btn:hover {
@@ -156,15 +158,19 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
     }
 
     .informe-item h3 {
       font-size: 1.1rem;
       color: #333;
     }
+
     #nosotros{
       color:#000000;
     }
+
     footer {
       background: #0a3d62;
       color: white;
@@ -173,20 +179,79 @@
       margin-top: 2rem;
     }
 
+    /* --- RESPONSIVE --- */
     @media (max-width: 768px) {
       header {
         flex-direction: column;
         text-align: center;
+        padding: 1rem;
+      }
+
+      .logo h1 {
+        font-size: 1.2rem;
       }
 
       nav {
-        margin-top: 1rem;
+        margin-top: 0.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      nav a {
+        margin: 0;
+      }
+
+      .hero {
+        padding: 3rem 1rem;
+        margin-top: 6rem;
+        width: 95%;
+      }
+
+      .hero h2 {
+        font-size: 1.5rem;
+      }
+
+      .hero p {
+        font-size: 0.95rem;
+      }
+
+      .services {
+        padding: 2rem 1rem;
+        gap: 1rem;
+      }
+
+      .card {
+        padding: 1.5rem;
+      }
+
+      .informes {
+        padding: 2rem 1rem;
+        margin: 2rem auto;
       }
 
       .informe-item {
         flex-direction: column;
         align-items: flex-start;
-        gap: 0.5rem;
+      }
+
+      footer {
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h2 {
+        font-size: 1.3rem;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .informe-item h3 {
+        font-size: 1rem;
       }
     }
   </style>
@@ -194,7 +259,7 @@
 <body>
 
   <!-- Video de fondo -->
-  <video autoplay muted loop id="bgVideo">
+  <video autoplay muted loop playsinline id="bgVideo">
     <source src="287988_small.mp4" type="video/mp4">
     Tu navegador no soporta video en HTML5.
   </video>
@@ -267,4 +332,3 @@
 
 </body>
 </html>
-
