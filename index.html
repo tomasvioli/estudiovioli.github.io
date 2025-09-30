@@ -29,9 +29,7 @@
       top: 0; left: 0;
       width: 100%; height: 100%;
       object-fit: cover;
-      z-index: 1;
-      filter: brightness(0.4);
-      opacity: .6;
+      z-index: 0;
       background: #000;
     }
 
@@ -87,6 +85,10 @@
       max-width: 900px;
       margin-left: auto;
       margin-right: auto;
+      /* Fondo sólido con transparencia elegante */
+      background: rgba(255,255,255,0.9);
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
     }
 
     .hero h2 {
@@ -97,6 +99,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       text-shadow: 0 3px 8px rgba(0,0,0,0.3);
+      color: #0a3d62; /* Azul corporativo sólido */
     }
 
     .hero p {
@@ -116,6 +119,7 @@
       font-weight: 600;
       transition: all .25s ease;
       box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+      color: white !important; /* Asegura contraste */
     }
     .btn:hover {
       background: #074173;
@@ -285,3 +289,4 @@
 </body>
 </html>
 ```
+
